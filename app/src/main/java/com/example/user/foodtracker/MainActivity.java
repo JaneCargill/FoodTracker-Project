@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         final DatabaseHandler db = ((MainApplication)getApplication()).db;
 
         db.addContact(new FoodDiary("cereal", "breakfast"));
+        db.addContact(new FoodDiary("pizza", "dinner"));
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, getAllContacts(db));
@@ -33,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<FoodDiary> contacts = db.getAllContacts();
         for (FoodDiary contact : contacts) {
-            contactNames.add(contact.getName());
+            contactNames.add(contact.getName() + " for " + contact.getPhone_number());
+
         }
         return contactNames;
     }

@@ -17,6 +17,7 @@ public class HomePage extends AppCompatActivity {
 
     TextView welcomePage;
     Button viewFoodEntriesButton;
+    Button newEntryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class HomePage extends AppCompatActivity {
 
         welcomePage = (TextView) findViewById(R.id.welcome_page_text);
         viewFoodEntriesButton = (Button) findViewById(R.id.view_entries_button);
+        newEntryButton = (Button)findViewById(R.id.new_entry_button);
 
 
         viewFoodEntriesButton.setOnClickListener(new View.OnClickListener() {
@@ -33,6 +35,16 @@ public class HomePage extends AppCompatActivity {
 
                 Intent intent = new Intent(HomePage.this, MainActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        newEntryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(HomePage.this, NewEntryActivity.class);
+                startActivity(intent);
+
             }
         });
     }

@@ -15,14 +15,18 @@ import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
-    private static final String DATABASE_NAME = "contactsManager";
+    private static final String DATABASE_NAME = "FoodTracker";
 
-    private static final String TABLE_CONTACTS = "contacts";
+    private static final String TABLE_FOODINFO = "Food_Entries";
     private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_PH_NO = "phone_number";
+    private static final String KEY_MONTH = "month";
+    private static final String KEY_DATE = "date";
+    private static final String KEY_TIME = "time";
+    private static final String KEY_MEAL = "meal";
+    private static final String KEY_FOOD_EATEN = "food_eaten";
+    private static final String KEY_KCAL = "kcal";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,15 +34,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_PH_NO + " TEXT )";
+        String CREATE_TABLE = "CREATE TABLE " + TABLE_FOODINFO + " ("
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_MONTH + " TEXT,"
+                + KEY_DATE + " TEXT," + KEY_TIME + " TEXT,"
+                + KEY_MEAL + " TEXT," + KEY_FOOD_EATEN + " TEXT," + KEY_KCAL + " TEXT )";
         db.execSQL(CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOODINFO);
         onCreate(db);
     }
 
@@ -47,53 +52,73 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
 
-    public void addContact(FoodDiary food) {
-        String name = food.getName();
-        String number = food.getPhone_number();
+    public void addFoodEntry(FoodDiary foodEntry) {
+        String month = foodEntry.getMonth();
+        String date = foodEntry.getDate();
+        String time = foodEntry.getTime();
+        String meal = foodEntry.getMeal();
+        String food_eaten = foodEntry.getFoodEaten();
+        int kcal = foodEntry.getKcal();
 
-        String sql = "INSERT INTO " + TABLE_CONTACTS +
-                "(" + KEY_NAME + "," + KEY_PH_NO + " ) VALUES ('"
-                + name + "','" + number + "')";
+
+        String sql = "INSERT INTO " + TABLE_FOODINFO +
+                "(" + KEY_MONTH + "," + KEY_DATE + "," + KEY_TIME + "," + KEY_MEAL + "," + KEY_FOOD_EATEN + "," + KEY_KCAL + " ) VALUES ('"
+                + month + "','" + date + "', '" + time + "', '" + meal + "','" + food_eaten + "'," + Integer.toString(kcal) + ")";
         runSQL(sql);
     }
 
 
-    // Getting single contact
-    public FoodDiary getContact(int id) {
-        String sql = "SELECT * FROM " + TABLE_CONTACTS + " WHERE " + KEY_ID + " = " + id;
+//    // Getting single entry
+//    public FoodDiary getFoodEntry(int id) {
+//        String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_ID + " = " + id;
+//
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        Cursor cursor = db.rawQuery(sql, null);
+//        if (cursor != null) {
+//            cursor.moveToFirst();
+//
+//            FoodDiary food_entry = getFoodFromDBCursor(cursor);
+//            return food_entry;
+//        }
+//        return null;
+//    }
+//
+//    public FoodDiary getFoodEntryByMonth(String month) {
+//        String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_MONTH + " = '" + month + "'";
+//
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        Cursor cursor = db.rawQuery(sql, null);
+//        if (cursor != null) {
+//            cursor.moveToFirst();
+//
+//            FoodDiary food_entry = getFoodFromDBCursor(cursor);
+//            return food_entry;
+//        }
+//        return null;
+//    }
+//
+//    public FoodDiary getFoodEntryByMeal(String meal) {
+//        String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_MEAL + " = '" + meal + "'";
+//
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        Cursor cursor = db.rawQuery(sql, null);
+//        if (cursor != null) {
+//            cursor.moveToFirst();
+//
+//            FoodDiary food_entry = getFoodFromDBCursor(cursor);
+//            return food_entry;
+//        }
+//        return null;
+//    }
 
+            // Getting All FoodEntries
+            public ArrayList<FoodDiary> getAllFoodEntries() {
+                ArrayList<FoodDiary> foodEntries = new ArrayList<FoodDiary>();
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(sql, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-
-            FoodDiary contact = getFoodFromDBCursor(cursor);
-            return contact;
-        }
-        return null;
-    }
-
-    public FoodDiary getContact(String name) {
-        String sql = "SELECT * FROM " + TABLE_CONTACTS + " WHERE " + KEY_NAME + " = '" + name + "'";
-
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(sql, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-
-            FoodDiary contact = getFoodFromDBCursor(cursor);
-            return contact;
-        }
-        return null;
-    }
-
-            // Getting All Contacts
-            public ArrayList<FoodDiary> getAllContacts() {
-                ArrayList<FoodDiary> contactList = new ArrayList<FoodDiary>();
-
-                String sql = "SELECT  * FROM " + TABLE_CONTACTS;
+                String sql = "SELECT * FROM " + TABLE_FOODINFO;
 
                 SQLiteDatabase db = this.getWritableDatabase();
                 Cursor cursor = db.rawQuery(sql, null);
@@ -105,39 +130,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //                contact.setID(Integer.parseInt(cursor.getString(0)));
 //                contact.setName(cursor.getString(1));
 //                contact.setPhone_number(cursor.getString(2));
-                        FoodDiary contact = getFoodFromDBCursor(cursor);
+                        FoodDiary food_entry = getFoodFromDBCursor(cursor);
                         // Adding contact to list
-                        contactList.add(contact);
+                        foodEntries.add(food_entry);
                     } while (cursor.moveToNext());
                 }
 
                 // return contact list
-                return contactList;
+                return foodEntries;
             }
 
 
 
-            // Getting contacts Count
+//             Getting contacts Count
 //    public int getContactsCount() {}
-
-            // Updating single contact
+//
+//             Updating single contact
 //    public int updateContact(Contact contact) {}
+//
+//             Deleting single contact
+        public void deleteFoodEntry (FoodDiary food_entry){
+            int id = food_entry.getID();
 
-            // Deleting single contact
-        public void deleteContact (FoodDiary contact){
-            int id = contact.getID();
-
-            String sql = "DELETE FROM " + TABLE_CONTACTS + " WHERE " + KEY_ID + " = " + id;
+            String sql = "DELETE FROM " + TABLE_FOODINFO + " WHERE " + KEY_ID + " = " + id;
             runSQL(sql);
         }
 
-        public void deletePlayer(int id) {
-            String sql = "DELETE FROM " + TABLE_CONTACTS + " WHERE " + KEY_ID + " = " + id;
+        public void deleteFoodEntry(int id) {
+            String sql = "DELETE FROM " + TABLE_FOODINFO + " WHERE " + KEY_ID + " = " + id;
             runSQL(sql);
     }
 
-        public void deleteAllPlayers() {
-            String sql = "DELETE FROM " + TABLE_CONTACTS;
+        public void deleteAllFood() {
+            String sql = "DELETE FROM " + TABLE_FOODINFO;
             runSQL(sql);
     }
 
@@ -146,22 +171,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             // Get the column index for each column in the table
             int idColumnNum = cursor.getColumnIndex(KEY_ID);
-            int nameColumNum = cursor.getColumnIndex(KEY_NAME);
-            int phonenumColumnNum = cursor.getColumnIndex(KEY_PH_NO);
-
+            int foodEatenColumnNum = cursor.getColumnIndex(KEY_FOOD_EATEN);
+            int mealColumnNum = cursor.getColumnIndex(KEY_MEAL);
+            int monthColumnNum = cursor.getColumnIndex(KEY_MONTH);
+            int dateColumnNum = cursor.getColumnIndex(KEY_DATE);
+            int timeColumnNum = cursor.getColumnIndex(KEY_TIME);
+            int kcalColumnNum = cursor.getColumnIndex(KEY_KCAL);
 
             // get the data in the fields at each column
             int id = Integer.parseInt(cursor.getString(idColumnNum));
-            String name = cursor.getString(nameColumNum);
-            String phonenum = cursor.getString(phonenumColumnNum);
+            String foodEaten = cursor.getString(foodEatenColumnNum);
+            String meal = cursor.getString(mealColumnNum);
+            String month = cursor.getString(monthColumnNum);
+            String date = cursor.getString(dateColumnNum);
+            String time = cursor.getString(timeColumnNum);
+            int kcal = Integer.parseInt(cursor.getString(kcalColumnNum));
 
-            FoodDiary contact = new FoodDiary(id, name, phonenum);
+            FoodDiary foodEntry = new FoodDiary(id, month, date, time, meal, foodEaten, kcal);
         /*dartPlayer.setId(id);
         dartPlayer.setName(name);
         dartPlayer.setNickname(nickname);
         dartPlayer.setRanking(ranking);*/
 
-            return contact;
+            return foodEntry;
         }
 
 }

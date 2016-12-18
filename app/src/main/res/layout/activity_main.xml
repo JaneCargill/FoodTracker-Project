@@ -11,9 +11,28 @@
     tools:context="com.example.user.foodtracker.MainActivity">
 
     <ListView
-        android:id="@+id/contact_list"
+        android:id="@+id/food_entries"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"/>
+
+
+
+
+    <!--<EditText-->
+        <!--android:id="@+id/food_input"-->
+        <!--android:hint="food entry"-->
+        <!--android:textSize="30dp"-->
+        <!--android:layout_marginTop="50dp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/add_food_button"-->
+        <!--android:text="add"-->
+        <!--android:layout_marginTop="25dp"-->
+        <!--android:layout_marginLeft="25dp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
 </LinearLayout>

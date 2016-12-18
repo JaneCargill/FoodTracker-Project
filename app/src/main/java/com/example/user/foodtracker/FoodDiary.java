@@ -7,17 +7,37 @@ package com.example.user.foodtracker;
 public class FoodDiary {
 
     private int id;
-    private String name;
-    private String phone_number;
+    private String food_eaten;
+    private String meal;
+    private String month;
+    private String date;
+    private String time;
+    private int kcal;
 
-    public FoodDiary(int id, String name, String phone_number) {
+
+    public FoodDiary(int id, String month, String date, String time, String meal, String food_eaten, int kcal) {
         this.id = id;
-        this.name = name;
-        this.phone_number = phone_number;
+        this.food_eaten = food_eaten;
+        this.meal = meal;
+        this.month = month;
+        this.date = date;
+        this.time = time;
+        this.kcal = kcal;
     }
-    public FoodDiary(String name, String phone_number) {
-        this.name = name;
-        this.phone_number = phone_number;
+//    public FoodDiary(String month, String date, String meal, String food_eaten, int kcal) {
+//        this.food_eaten = food_eaten;
+//        this.meal = meal;
+//        this.month = month;
+//        this.date = date;
+//        this.kcal = kcal;
+//    }
+    public FoodDiary(String month, String date, String time, String meal, String food_eaten, int kcal) {
+        this.food_eaten = food_eaten;
+        this.meal = meal;
+        this.month = month;
+        this.date = date;
+        this.time = time;
+        this.kcal = kcal;
     }
 
     public int getID() {
@@ -28,19 +48,45 @@ public class FoodDiary {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
+    public String getFoodEaten() {
+        return this.food_eaten;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFoodEaten(String food_eaten) {
+        this.food_eaten = food_eaten;
     }
 
-    public String getPhone_number() {
-        return this.phone_number;
+    public String getMeal() {
+        return this.meal;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setMeal(String meal) {
+        this.meal = meal;
     }
+
+    public String getMonth() {
+        return this.month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getDate() {
+        return this.date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return this.time;
+    }
+
+    public void setTime(String time) { this.time = time; }
+
+    public int getKcal() { return this.kcal; }
+
+    public void setKcal(int kcal) { this.kcal = kcal; }
 }

@@ -3,4 +3,65 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/month_input"
+        android:hint="enter the month"
+        android:layout_marginTop="20dp"
+        android:textSize="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/date_input"
+        android:hint="enter the date"
+        android:layout_marginTop="20dp"
+        android:textSize="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/time_input"
+        android:hint="enter the time"
+        android:layout_marginTop="20dp"
+        android:textSize="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/food_input"
+        android:hint="enter food eaten"
+        android:layout_marginTop="20dp"
+        android:textSize="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/meal_input"
+        android:hint="enter for what meal or snack"
+        android:layout_marginTop="20dp"
+        android:textSize="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/kcal_input"
+        android:hint="enter the amount of kcal"
+        android:layout_marginTop="20dp"
+        android:textSize="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/save_button"
+        android:text="Save"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:text="Cancel"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
 </LinearLayout>

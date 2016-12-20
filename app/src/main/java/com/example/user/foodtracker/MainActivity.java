@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -61,7 +62,31 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                String selectedEntry = (String) mListView.getItemAtPosition(position);
+//                Log.d("item at position: ", selectedEntry);
+                FoodDiary foodEntry = db.getFoodEntry(position + 1);
+
+                Intent intent = new Intent(MainActivity.this, SingleItemView.class);
+
+                intent.putExtra("id", foodEntry.getID());
+                intent.putExtra("month", foodEntry.getMonth());
+                intent.putExtra("date", foodEntry.getDate());
+                intent.putExtra("time", foodEntry.getTime());
+                intent.putExtra("meal", foodEntry.getMeal());
+                intent.putExtra("food", foodEntry.getFoodEaten());
+                intent.putExtra("kcal", foodEntry.getKcal());
+
+                Log.d("WORKING :", intent.getExtras().toString());
+
+                startActivity(intent);
+            }
+        });
     }
+
 
 
     private ArrayList<String> getAllFoodEntries(DatabaseHandler db) {
@@ -69,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<FoodDiary> foodEntries = db.getAllFoodEntries();
         for (FoodDiary foodEntry : foodEntries) {
-            foodDiary.add(foodEntry.getMeal() + ": " + foodEntry.getFoodEaten() + " on " + foodEntry.getMonth() + " " + foodEntry.getDate() + " " + foodEntry.getKcal()+ "kcal");
+            foodDiary.add(foodEntry.getMeal() + ": " + foodEntry.getFoodEaten() + " on " + foodEntry.getMonth() + " " + foodEntry.getDate() + " " + foodEntry.getKcal() + "kcal");
 
         }
         return foodDiary;

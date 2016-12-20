@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,36 +69,53 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-//    // Getting single entry
-//    public FoodDiary getFoodEntry(int id) {
-//        String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_ID + " = " + id;
+    // Getting single entry
+    public FoodDiary getFoodEntry(int id) {
+        String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_ID + " = " + id;
 //
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+
+            FoodDiary food_entry = getFoodFromDBCursor(cursor);
+            return food_entry;
+        }
+        return null;
+    }
+
+//    public FoodDiary getFoodEntry(String id) {
+//        String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_ID + " = '" + id + "'";
+//        Log.d("food entry: ", sql);
+//        SQLiteDatabase db = this.getReadableDatabase();
 //        Cursor cursor = db.rawQuery(sql, null);
+//        Log.d("FoodEntry: ", cursor.toString());
 //        if (cursor != null) {
 //            cursor.moveToFirst();
 //
 //            FoodDiary food_entry = getFoodFromDBCursor(cursor);
 //            return food_entry;
+//
 //        }
 //        return null;
 //    }
 //
-//    public FoodDiary getFoodEntryByMonth(String month) {
-//        String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_MONTH + " = '" + month + "'";
 //
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(sql, null);
-//        if (cursor != null) {
-//            cursor.moveToFirst();
-//
-//            FoodDiary food_entry = getFoodFromDBCursor(cursor);
-//            return food_entry;
-//        }
-//        return null;
-//    }
+    public FoodDiary getMonth(String month) {
+        String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_MONTH + " = '" + month + "'";
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+
+            FoodDiary food_entry = getFoodFromDBCursor(cursor);
+            return food_entry;
+        }
+        return null;
+    }
 //
 //    public FoodDiary getFoodEntryByMeal(String meal) {
 //        String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_MEAL + " = '" + meal + "'";
@@ -146,7 +164,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //    public int getContactsCount() {}
 //
 //             Updating single contact
-//    public int updateContact(Contact contact) {}
+    public void updateEntry(FoodDiary entry) {
+        int id = entry.getID();
+        String month = entry.getMonth();
+        String date = entry.getDate();
+        String time = entry.getTime();
+        String meal = entry.getMeal();
+        String food = entry.getFoodEaten();
+        int kcal = entry.getKcal();
+
+        String sql = "UPDATE " + TABLE_FOODINFO + " SET " + KEY_MONTH + " = '" + month + "', " + KEY_DATE + " = '" + date + "', " + KEY_TIME + " = '" + time + "', " + KEY_MEAL + " = '" + meal + "', " + KEY_FOOD_EATEN + " = '" + food + "', " + KEY_KCAL + " = " + kcal + " WHERE " + KEY_ID + " = " + id;
+        runSQL(sql);
+    }
 //
 //             Deleting single contact
         public void deleteFoodEntry (FoodDiary food_entry){
@@ -171,29 +200,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             // Get the column index for each column in the table
             int idColumnNum = cursor.getColumnIndex(KEY_ID);
-            int foodEatenColumnNum = cursor.getColumnIndex(KEY_FOOD_EATEN);
+            Integer foodEatenColumnNum = cursor.getColumnIndex(KEY_FOOD_EATEN);
+            Log.d("Index: ", foodEatenColumnNum.toString());
             int mealColumnNum = cursor.getColumnIndex(KEY_MEAL);
             int monthColumnNum = cursor.getColumnIndex(KEY_MONTH);
             int dateColumnNum = cursor.getColumnIndex(KEY_DATE);
             int timeColumnNum = cursor.getColumnIndex(KEY_TIME);
             int kcalColumnNum = cursor.getColumnIndex(KEY_KCAL);
 
-            // get the data in the fields at each column
-            int id = Integer.parseInt(cursor.getString(idColumnNum));
-            String foodEaten = cursor.getString(foodEatenColumnNum);
-            String meal = cursor.getString(mealColumnNum);
-            String month = cursor.getString(monthColumnNum);
-            String date = cursor.getString(dateColumnNum);
-            String time = cursor.getString(timeColumnNum);
-            int kcal = Integer.parseInt(cursor.getString(kcalColumnNum));
 
-            FoodDiary foodEntry = new FoodDiary(id, month, date, time, meal, foodEaten, kcal);
-        /*dartPlayer.setId(id);
-        dartPlayer.setName(name);
-        dartPlayer.setNickname(nickname);
-        dartPlayer.setRanking(ranking);*/
+                // get the data in the fields at each column
+                Integer id = Integer.parseInt(cursor.getString(idColumnNum));
+            Log.d("id: ", id.toString());
+                String foodEaten = cursor.getString(foodEatenColumnNum);
+                Log.d("foodEaten: ", foodEaten);
+                String meal = cursor.getString(mealColumnNum);
+            Log.d("Meal: ", meal);
+                String month = cursor.getString(monthColumnNum);
+            Log.d("Month: ", month);
+                String date = cursor.getString(dateColumnNum);
+            Log.d("Date : ", date);
+                String time = cursor.getString(timeColumnNum);
+            Log.d("time: ", time);
+                Integer kcal = Integer.parseInt(cursor.getString(kcalColumnNum));
+            Log.d("kcal: ", kcal.toString());
 
-            return foodEntry;
+                FoodDiary foodEntry = new FoodDiary(id, month, date, time, meal, foodEaten, kcal);
+
+
+
+                return foodEntry;
         }
 
 }

@@ -3,7 +3,12 @@ package com.example.user.foodtracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import static android.R.attr.id;
 
 /**
  * Created by user on 19/12/2016.
@@ -14,39 +19,78 @@ public class SingleItemView extends AppCompatActivity {
     TextView txtdate;
     TextView txttime;
     TextView txtmeal;
-    TextView txtfood_eaten;
+    TextView txtfood;
     TextView txtkcal;
     String month;
     String date;
     String time;
     String meal;
-    String food_eaten;
+    String food;
     String kcal;
+    Button editButton;
+    Button deleteButton;
+    Button backButton;
+
 
     @Override
     public void onCreate(Bundle savedInsanceState) {
         super.onCreate(savedInsanceState);
         setContentView(R.layout.singleitemview);
-        Intent i = getIntent();
-        month = i.getStringExtra("month");
-        date = i.getStringExtra("date");
-        time = i.getStringExtra("time");
-        meal = i.getStringExtra("meal");
-        food_eaten = i.getStringExtra("food");
-        kcal = i.getStringExtra("kcal");
 
-        txtmonth = (TextView)findViewById(R.id.month);
-        txtdate = (TextView)findViewById(R.id.date);
-        txttime = (TextView)findViewById(R.id.time);
-        txtmeal = (TextView)findViewById(R.id.meal);
-        txtfood_eaten = (TextView)findViewById(R.id.food_input);
-        txtkcal = (TextView)findViewById(R.id.kcal);
 
-        txtmonth.setText(month);
-        txtdate.setText(date);
-        txttime.setText(time);
-        txtmeal.setText(meal);
-        txtfood_eaten.setText(food_eaten);
-        txtkcal.setText(kcal);
-}
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        final int id = extras.getInt("id");
+        final String month = extras.getString("month");
+        final String date = extras.getString("date");
+        final String time = extras.getString("time");
+        final String meal = extras.getString("meal");
+        final String food = extras.getString("food");
+        final int kcal = extras.getInt("kcal");
+
+
+        txtmonth = (TextView) findViewById(R.id.month);
+        txtdate = (TextView) findViewById(R.id.date);
+        txttime = (TextView) findViewById(R.id.time);
+        txtmeal = (TextView) findViewById(R.id.meal);
+        txtfood = (TextView) findViewById(R.id.food_eaten);
+        txtkcal = (TextView) findViewById(R.id.kcal);
+        editButton = (Button) findViewById(R.id.edit_button);
+        deleteButton = (Button) findViewById(R.id.delete_button);
+        backButton = (Button) findViewById(R.id.back_button);
+
+        txtdate.setText("On " + month + " the " + date + " at " + time);
+        txtfood.setText("You had " + food + " for " + meal);
+        txtkcal.setText("Number of calories consumed: " + kcal);
+
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SingleItemView.this, EditFoodEntry.class);
+                intent.putExtra("id", id);
+                intent.putExtra("month", month);
+                intent.putExtra("date", date);
+                intent.putExtra("time", time);
+                intent.putExtra("meal", meal);
+                intent.putExtra("food_eaten", food);
+                intent.putExtra("kcal", kcal);
+                startActivity(intent);
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                backToMainActivity();
+            }
+        });
+    }
+
+
+
+    private void backToMainActivity() {
+        Intent intent = new Intent(SingleItemView.this, MainActivity.class);
+        startActivity(intent);
+    }
 }

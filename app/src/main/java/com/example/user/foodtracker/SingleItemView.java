@@ -21,12 +21,6 @@ public class SingleItemView extends AppCompatActivity {
     TextView txtmeal;
     TextView txtfood;
     TextView txtkcal;
-    String month;
-    String date;
-    String time;
-    String meal;
-    String food;
-    String kcal;
     Button editButton;
     Button deleteButton;
     Button backButton;
@@ -45,8 +39,10 @@ public class SingleItemView extends AppCompatActivity {
         final String date = extras.getString("date");
         final String time = extras.getString("time");
         final String meal = extras.getString("meal");
-        final String food = extras.getString("food");
+        final String foodeat = extras.getString("food");
         final int kcal = extras.getInt("kcal");
+
+        final DatabaseHandler db = ((MainApplication)getApplication()).db;
 
 
         txtmonth = (TextView) findViewById(R.id.month);
@@ -59,9 +55,9 @@ public class SingleItemView extends AppCompatActivity {
         deleteButton = (Button) findViewById(R.id.delete_button);
         backButton = (Button) findViewById(R.id.back_button);
 
-        txtdate.setText("On " + month + " the " + date + " at " + time);
-        txtfood.setText("You had " + food + " for " + meal);
-        txtkcal.setText("Number of calories consumed: " + kcal);
+        txtdate.setText("On " + month + " the " + date + " at " + time );
+        txtfood.setText("You had " + foodeat + " for " + meal );
+        txtkcal.setText("Number of calories consumed: " + kcal );
 
 
         editButton.setOnClickListener(new View.OnClickListener() {
@@ -73,8 +69,17 @@ public class SingleItemView extends AppCompatActivity {
                 intent.putExtra("date", date);
                 intent.putExtra("time", time);
                 intent.putExtra("meal", meal);
-                intent.putExtra("food_eaten", food);
+                intent.putExtra("food", foodeat);
                 intent.putExtra("kcal", kcal);
+                startActivity(intent);
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.deleteFoodEntry(id);
+                Intent intent = new Intent(SingleItemView.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -82,15 +87,15 @@ public class SingleItemView extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                backToMainActivity();
+                backToHomePage();
             }
         });
     }
 
 
 
-    private void backToMainActivity() {
-        Intent intent = new Intent(SingleItemView.this, MainActivity.class);
+    private void backToHomePage() {
+        Intent intent = new Intent(SingleItemView.this, HomePage.class);
         startActivity(intent);
     }
 }

@@ -13,6 +13,22 @@
     <!--<requestFocus />-->
     <!--<EditText/>-->
 
+    <Button
+        android:id="@+id/add_button"
+        android:text="Add Food Entry"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/total_cals"
+        android:textSize="55dp"
+        android:textColor="#92113E"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
+
 
     <ListView
         android:id="@+id/food_entries"
@@ -24,11 +40,6 @@
 
 
 
-    <!--<Button-->
-        <!--android:id="@+id/add_food_button"-->
-        <!--android:text="add"-->
-        <!--android:layout_marginTop="25dp"-->
-        <!--android:layout_marginLeft="25dp"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" />-->
+
+
 </LinearLayout>

@@ -43,14 +43,14 @@ public class EditFoodEntry extends AppCompatActivity {
         final String date = extras.getString("date");
         final String time = extras.getString("time");
         final String meal = extras.getString("meal");
-        final String food_eaten = extras.getString("food");
+        final String food = extras.getString("food");
         final int kcal = extras.getInt("kcal");
 
         monthEditText.setText(month);
         dateEditText.setText(date);
         timeEditText.setText(time);
         mealEditText.setText(meal);
-        foodEditText.setText(food_eaten);
+        foodEditText.setText(food);
         kcalEditText.setText(Integer.toString(kcal));
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +72,7 @@ public class EditFoodEntry extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                backToFoodEntryView(id, month, date, time, meal, food_eaten, kcal);
+                backToFoodEntryView(id, month, date, time, meal, food, kcal);
             }
         });
     }
@@ -84,7 +84,7 @@ public class EditFoodEntry extends AppCompatActivity {
         intent.putExtra("date", date);
         intent.putExtra("time", time);
         intent.putExtra("meal", meal);
-        intent.putExtra("food_eaten", food);
+        intent.putExtra("food", food);
         intent.putExtra("kcal", kcal);
         startActivity(intent);
     }

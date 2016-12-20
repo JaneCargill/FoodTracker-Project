@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     ListView mListView;
     ArrayAdapter<String> listAdapter;
     EditText editSearch;
+    Button addButton;
+    TextView totalCals;
 
 
     @Override
@@ -36,15 +39,19 @@ public class MainActivity extends AppCompatActivity {
 
         mListView = (ListView)findViewById(R.id.food_entries);
         editSearch = (EditText) findViewById(R.id.search);
+        addButton = (Button)findViewById(R.id.add_button);
         listAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, getAllFoodEntries(db));
+        totalCals = (TextView)findViewById(R.id.total_cals);
 
 //                db.deleteAllFood();
 //        db.addFoodEntry(new FoodDiary("Dec", "17th", "7pm", "Dinner", "pizza", 500));
 //        db.addFoodEntry(new FoodDiary("Dec", "17th", "8am", "Breakfast", "cereal", 200));
 //        db.addFoodEntry(new FoodDiary("Dec", "17th", "7pm", "Lunch", "salad", 100));
 
-
+        Integer totalKcal = db.getTotalKcal();
+        Log.d("Cals: ", totalKcal.toString());
+        totalCals.setText(totalKcal.toString());
         mListView.setAdapter(listAdapter);
         editSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -83,6 +90,16 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("WORKING :", intent.getExtras().toString());
 
                 startActivity(intent);
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, NewEntryActivity.class);
+                startActivity(intent);
+
             }
         });
     }

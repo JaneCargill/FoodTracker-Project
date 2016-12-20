@@ -72,7 +72,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Getting single entry
     public FoodDiary getFoodEntry(int id) {
         String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_ID + " = " + id;
-//
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
@@ -83,6 +82,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return food_entry;
         }
         return null;
+    }
+
+    public Integer getTotalKcal() {
+        String sql = "SELECT SUM(kcal) AS totalKcal FROM " + TABLE_FOODINFO;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+//
+//            FoodDiary food_entry = getFoodFromDBCursor(cursor);
+//            return food_entry;
+            Integer total = cursor.getInt(cursor.getColumnIndex("totalKcal"));
+            Log.d("Total kcal: ", total.toString());
+            return total;
+
+        }
+            return null;
     }
 
 //    public FoodDiary getFoodEntry(String id) {

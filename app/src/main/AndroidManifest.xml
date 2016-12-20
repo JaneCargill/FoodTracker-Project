@@ -35,9 +35,6 @@
             android:name=".SingleItemView">
 
         </activity>
-        <!--<activity-->
-            <!--android:name=".ViewFoodEntry">-->
-        <!--</activity>-->
         <activity
             android:name=".EditFoodEntry">
 

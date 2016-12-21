@@ -50,7 +50,7 @@ public class TodayItemView extends AppCompatActivity {
 
         Integer todayKcal = db.getKcalsForTodaysFood();
         Log.d("today kcals: ", todayKcal.toString());
-        totalCals.setText(todayKcal.toString());
+        totalCals.setText("Calories consumed so far: " + todayKcal.toString() + "kcal");
 
 //        int count = db.getTodaysFood();
 //        todayDate.setText(count);
@@ -87,7 +87,7 @@ public class TodayItemView extends AppCompatActivity {
 
         ArrayList<FoodDiary> foodEntries = db.getTodaysFood();
         for (FoodDiary foodEntry : foodEntries) {
-            foodDiary.add(foodEntry.getMeal() + ": " + foodEntry.getFoodEaten() + " on day: " + foodEntry.getDay() + " date: " + foodEntry.getDate() + " month: " + foodEntry.getMonth() + " " + foodEntry.getKcal() + "kcal");
+            foodDiary.add(foodEntry.getDay() + foodEntry.getDate() + foodEntry.getMonth() + "\n" + foodEntry.getMeal() + ": " + foodEntry.getFoodEaten() +  " " + foodEntry.getKcal() + "kcal");
 
         }
         return foodDiary;

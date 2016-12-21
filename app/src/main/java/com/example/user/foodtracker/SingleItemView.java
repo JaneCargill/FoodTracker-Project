@@ -55,7 +55,7 @@ public class SingleItemView extends AppCompatActivity {
         deleteButton = (Button) findViewById(R.id.delete_button);
         backButton = (Button) findViewById(R.id.back_button);
 
-        txtdate.setText("On " + month + " the " + date + " at " + day );
+        txtdate.setText("On " + day + " the " + date + " of " + month + "");
         txtfood.setText("You had " + foodeat + " for " + meal );
         txtkcal.setText("Number of calories consumed: " + kcal );
 

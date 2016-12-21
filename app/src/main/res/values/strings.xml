@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Food Tracker</string>
+    <string name="RI">As part of a healthy balanced diet, an adult\'s reference intakes(\"RIs\") for a day:</string>
+    <string name="Energy">Energy 200kcal</string>
+    <string name="Fat">Fat 70g</string>
+    <string name="Carb">Carbohydrate 260g</string>
+    <string name="Sugars">Total Sugars 90g</string>
+    <string name="Protein">Protein 50g</string>
+    <string name="Salt">Salt 6g</string>
 </resources>

@@ -9,33 +9,54 @@
         android:textSize="30dp"
         android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
     <!--<requestFocus />-->
     <!--<EditText/>-->
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal">
+
+
+        <Button
+            android:id="@+id/today_button"
+            android:text="Today"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pink_button"
+            />
 
     <Button
         android:id="@+id/add_button"
         android:text="Add Food Entry"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="25dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pink_button"
+            android:shadowColor="#4D4D4D"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
+            />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/total_cals"
-        android:textSize="55dp"
+        android:textSize="20dp"
         android:textColor="#92113E"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"/>
-
-    <Button
-        android:id="@+id/today_button"
-        android:text="Today"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_gravity="center_horizontal" />
 
 
     <ListView
@@ -43,7 +64,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="20dp"
+        android:divider="@color/pink"
+        android:dividerHeight="4px"/>
 
 
 

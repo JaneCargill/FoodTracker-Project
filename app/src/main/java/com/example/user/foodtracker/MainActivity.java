@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         Integer totalKcal = db.getTotalKcal();
         Log.d("Cals: ", totalKcal.toString());
-        totalCals.setText(totalKcal.toString());
+        totalCals.setText("Total consumption: " + totalKcal.toString() + "kcal");
         mListView.setAdapter(listAdapter);
 //        mListView.setAdapter(adapter);
         editSearch.addTextChangedListener(new TextWatcher() {
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<FoodDiary> foodEntries = db.getAllFoodEntries();
         for (FoodDiary foodEntry : foodEntries) {
-            foodDiary.add(foodEntry.getMeal() + ": " + foodEntry.getFoodEaten() + " on " + foodEntry.getMonth() + " " + foodEntry.getDate() + " " + foodEntry.getKcal() + "kcal");
+            foodDiary.add(foodEntry.getDay() + foodEntry.getDate() + foodEntry.getMonth() + "\n" + foodEntry.getMeal() + ": " + foodEntry.getFoodEaten() +  " " + foodEntry.getKcal() + "kcal");
 
         }
         return foodDiary;

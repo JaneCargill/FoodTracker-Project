@@ -41,7 +41,8 @@
 
         </activity>
         <activity
-            android:name=".TodayItemView">
+            android:name=".TodayItemView"
+            android:parentActivityName=".MainActivity">
 
         </activity>
 

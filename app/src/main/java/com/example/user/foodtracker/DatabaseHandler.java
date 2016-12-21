@@ -124,6 +124,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             Log.d("Total kcal: ", total.toString());
             return total;
         }
+        return null;
+    }
 
 
         public ArrayList<FoodDiary> getTodaysFood () {
@@ -144,7 +146,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             return foodEntries;
         }
-    }
+
 
 
 //        return null;

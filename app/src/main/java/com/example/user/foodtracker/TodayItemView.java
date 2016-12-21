@@ -48,9 +48,9 @@ public class TodayItemView extends AppCompatActivity {
         Log.d("Todays date: ", today);
         todayDate.setText(today);
 
-        Integer totalKcal = db.getKcalsForTodaysFood();
-        Log.d("Cals: ", totalKcal.toString());
-        totalCals.setText(totalKcal.toString());
+        Integer todayKcal = db.getKcalsForTodaysFood();
+        Log.d("today kcals: ", todayKcal.toString());
+        totalCals.setText(todayKcal.toString());
 
 //        int count = db.getTodaysFood();
 //        todayDate.setText(count);

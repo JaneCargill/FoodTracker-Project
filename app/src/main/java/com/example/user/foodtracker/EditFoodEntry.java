@@ -14,7 +14,7 @@ import android.widget.EditText;
 public class EditFoodEntry extends AppCompatActivity {
     EditText monthEditText;
     EditText dateEditText;
-    EditText timeEditText;
+    EditText dayEditText;
     EditText mealEditText;
     EditText foodEditText;
     EditText kcalEditText;
@@ -29,7 +29,7 @@ public class EditFoodEntry extends AppCompatActivity {
 
         monthEditText = (EditText) findViewById(R.id.month);
         dateEditText = (EditText) findViewById(R.id.date);
-        timeEditText = (EditText) findViewById(R.id.time);
+        dayEditText = (EditText) findViewById(R.id.day);
         mealEditText = (EditText) findViewById(R.id.meal);
         foodEditText = (EditText) findViewById(R.id.food);
         kcalEditText = (EditText) findViewById(R.id.kcal);
@@ -41,14 +41,14 @@ public class EditFoodEntry extends AppCompatActivity {
         final int id = extras.getInt("id");
         final String month = extras.getString("month");
         final String date = extras.getString("date");
-        final String time = extras.getString("time");
+        final String day = extras.getString("day");
         final String meal = extras.getString("meal");
         final String food = extras.getString("food");
         final int kcal = extras.getInt("kcal");
 
         monthEditText.setText(month);
         dateEditText.setText(date);
-        timeEditText.setText(time);
+        dayEditText.setText(day);
         mealEditText.setText(meal);
         foodEditText.setText(food);
         kcalEditText.setText(Integer.toString(kcal));
@@ -58,31 +58,31 @@ public class EditFoodEntry extends AppCompatActivity {
             public void onClick(View view) {
                 String month = monthEditText.getText().toString();
                 String date = dateEditText.getText().toString();
-                String time = timeEditText.getText().toString();
+                String day = dayEditText.getText().toString();
                 String meal = mealEditText.getText().toString();
                 String food = foodEditText.getText().toString();
                 int kcal = Integer.parseInt(kcalEditText.getText().toString());
 
-                FoodDiary entryToUpdate = new FoodDiary(id, month, date, time, meal, food, kcal);
+                FoodDiary entryToUpdate = new FoodDiary(id, month, date, day, meal, food, kcal);
                 db.updateEntry(entryToUpdate);
-                backToFoodEntryView(id, month, date, time, meal, food, kcal);
+                backToFoodEntryView(id, month, date, day, meal, food, kcal);
             }
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                backToFoodEntryView(id, month, date, time, meal, food, kcal);
+                backToFoodEntryView(id, month, date, day, meal, food, kcal);
             }
         });
     }
 
-    private void backToFoodEntryView(int id, String month, String date, String time, String meal, String food, int kcal) {
+    private void backToFoodEntryView(int id, String month, String date, String day, String meal, String food, int kcal) {
         Intent intent = new Intent(EditFoodEntry.this, SingleItemView.class);
         intent.putExtra("id", id);
         intent.putExtra("month", month);
         intent.putExtra("date", date);
-        intent.putExtra("time", time);
+        intent.putExtra("day", day);
         intent.putExtra("meal", meal);
         intent.putExtra("food", food);
         intent.putExtra("kcal", kcal);

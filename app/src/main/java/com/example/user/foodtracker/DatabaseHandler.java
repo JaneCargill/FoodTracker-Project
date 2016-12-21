@@ -85,6 +85,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
             FoodDiary food_entry = getFoodFromDBCursor(cursor);
+
             return food_entry;
         }
         return null;
@@ -109,71 +110,55 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 //    public FoodDiary getFoodEntry(String id) {
-//        String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_ID + " = '" + id + "'";
-//        Log.d("food entry: ", sql);
-//        SQLiteDatabase db = this.getReadableDatabase();
+//         String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_MONTH + " = '" + month + "'";
+//
+//
+//    SQLiteDatabase db = this.getWritableDatabase();
+//    Cursor cursor = db.rawQuery(sql, null);
+//    if (cursor != null) {
+//        cursor.moveToFirst();
+//
+//        FoodDiary food_entry = getFoodFromDBCursor(cursor);
+//        return food_entry;
+//    }
+//    return null;
+//    }
+//
+//
+//    public FoodDiary getByDay(String day) {
+//
+//        String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_DAY + " = " + day;
+//
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
 //        Cursor cursor = db.rawQuery(sql, null);
-//        Log.d("FoodEntry: ", cursor.toString());
 //        if (cursor != null) {
 //            cursor.moveToFirst();
 //
 //            FoodDiary food_entry = getFoodFromDBCursor(cursor);
 //            return food_entry;
-//
 //        }
 //        return null;
 //    }
-//
-//
-    public FoodDiary getMonth(String month) {
-        String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_MONTH + " = '" + month + "'";
 
+
+    public ArrayList<FoodDiary> getTodaysFood(int id) {
+        ArrayList<FoodDiary> foodEntries = new ArrayList<FoodDiary>();
+
+        String sql = "SELECT * FROM " + TABLE_FOODINFO + " GROUP BY " + KEY_DAY + " HAVING COUNT(*) > 1 WHERE " + KEY_ID + " =" + id;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
 
-            FoodDiary food_entry = getFoodFromDBCursor(cursor);
-            return food_entry;
+        if (cursor.moveToFirst()) {
+            do {FoodDiary food_entry = getFoodFromDBCursor(cursor);
+                foodEntries.add(food_entry);
+            } while (cursor.moveToNext());
         }
-        return null;
+
+        return foodEntries;
     }
 
-//    public ArrayList<FoodDiary> getTodaysFood() {
-//        ArrayList<FoodDiary> foodEntries = new ArrayList<FoodDiary>();
-//
-//
-//        String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_DATE + " = date('now') ";
-//
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(sql, null);
-//        Log.d("Cursor: ", cursor.toString());
-//        if (cursor != null) {
-//            cursor.moveToFirst();
-//
-//            FoodDiary food_entry = getFoodFromDBCursor(cursor);
-//            Log.d("Date food entry: ", cursor.toString());
-//            // Adding contact to list
-//            foodEntries.add(food_entry);
-//        } while (cursor.moveToNext());
-//
-//    return foodEntries;
-//
-//    }
-
-//    public Integer getTodaysFood() {
-//        String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
-//        String sql = "SELECT COUNT(*) from upload_history "
-//                + "WHERE strftime('%m%d',file_uploaded_date) = '" + today + "')";
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(sql, null);
-//        if(cursor != null && cursor.moveToFirst()){
-//            Integer uploadedToday = cursor.getInt(0);
-//            Log.d("UploadedToday: ", uploadedToday.toString());
-//            return uploadedToday;
-//        }
 //        return null;
 //    }
 
@@ -204,7 +189,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ArrayList<FoodDiary> foodEntries = new ArrayList<FoodDiary>();
 
             String sql = "SELECT * FROM " + TABLE_FOODINFO;
-
+            Log.d("OUTPUT from table: ", sql);
+//            String sql = "SELECT COUNT(" + KEY_MONTH + ") AS COUNT FROM " + TABLE_FOODINFO + " GROUP BY " + KEY_MONTH + "";
             SQLiteDatabase db = this.getWritableDatabase();
             Cursor cursor = db.rawQuery(sql, null);
 
@@ -225,12 +211,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return foodEntries;
         }
 
-
-
-
-//             Getting contacts Count
-//    public int getContactsCount() {}
-//
 //             Updating single contact
     public void updateEntry(FoodDiary entry) {
         int id = entry.getID();

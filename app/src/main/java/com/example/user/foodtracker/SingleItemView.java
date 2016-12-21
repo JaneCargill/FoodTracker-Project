@@ -17,7 +17,7 @@ import static android.R.attr.id;
 public class SingleItemView extends AppCompatActivity {
     TextView txtmonth;
     TextView txtdate;
-    TextView txttime;
+    TextView txtday;
     TextView txtmeal;
     TextView txtfood;
     TextView txtkcal;
@@ -37,7 +37,7 @@ public class SingleItemView extends AppCompatActivity {
         final int id = extras.getInt("id");
         final String month = extras.getString("month");
         final String date = extras.getString("date");
-        final String time = extras.getString("time");
+        final String day = extras.getString("day");
         final String meal = extras.getString("meal");
         final String foodeat = extras.getString("food");
         final int kcal = extras.getInt("kcal");
@@ -47,7 +47,7 @@ public class SingleItemView extends AppCompatActivity {
 
         txtmonth = (TextView) findViewById(R.id.month);
         txtdate = (TextView) findViewById(R.id.date);
-        txttime = (TextView) findViewById(R.id.time);
+        txtday = (TextView) findViewById(R.id.day);
         txtmeal = (TextView) findViewById(R.id.meal);
         txtfood = (TextView) findViewById(R.id.food_eaten);
         txtkcal = (TextView) findViewById(R.id.kcal);
@@ -55,7 +55,7 @@ public class SingleItemView extends AppCompatActivity {
         deleteButton = (Button) findViewById(R.id.delete_button);
         backButton = (Button) findViewById(R.id.back_button);
 
-        txtdate.setText("On " + month + " the " + date + " at " + time );
+        txtdate.setText("On " + month + " the " + date + " at " + day );
         txtfood.setText("You had " + foodeat + " for " + meal );
         txtkcal.setText("Number of calories consumed: " + kcal );
 
@@ -67,7 +67,7 @@ public class SingleItemView extends AppCompatActivity {
                 intent.putExtra("id", id);
                 intent.putExtra("month", month);
                 intent.putExtra("date", date);
-                intent.putExtra("time", time);
+                intent.putExtra("day", day);
                 intent.putExtra("meal", meal);
                 intent.putExtra("food", foodeat);
                 intent.putExtra("kcal", kcal);

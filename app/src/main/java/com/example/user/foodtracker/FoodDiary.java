@@ -1,5 +1,17 @@
 package com.example.user.foodtracker;
 
+import android.content.Context;
+import android.util.Log;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import static android.content.ContentValues.TAG;
+
 /**
  * Created by user on 16/12/2016.
  */
@@ -11,17 +23,17 @@ public class FoodDiary {
     private String meal;
     private String month;
     private String date;
-    private String time;
+    private String day;
     private int kcal;
 
 
-    public FoodDiary(int id, String month, String date, String time, String meal, String food_eaten, int kcal) {
+    public FoodDiary(int id, String month, String date, String day, String meal, String food_eaten, int kcal) {
         this.id = id;
         this.food_eaten = food_eaten;
         this.meal = meal;
         this.month = month;
         this.date = date;
-        this.time = time;
+        this.day = day;
         this.kcal = kcal;
     }
 //    public FoodDiary(String month, String date, String meal, String food_eaten, int kcal) {
@@ -31,13 +43,14 @@ public class FoodDiary {
 //        this.date = date;
 //        this.kcal = kcal;
 //    }
-    public FoodDiary(String month, String date, String time, String meal, String food_eaten, int kcal) {
+    public FoodDiary(String month, String date, String day, String meal, String food_eaten, int kcal) {
         this.food_eaten = food_eaten;
         this.meal = meal;
         this.month = month;
         this.date = date;
-        this.time = time;
+        this.day = day;
         this.kcal = kcal;
+//        Log.d("Date:", this.date);
     }
 
     public int getID() {
@@ -72,19 +85,17 @@ public class FoodDiary {
         this.month = month;
     }
 
-    public String getDate() {
-        return this.date;
-    }
+    public String getDate() { return this.date; }
 
     public void setDate(String date) {
         this.date = date;
     }
 
-    public String getTime() {
-        return this.time;
+    public String getDay() {
+        return this.day;
     }
 
-    public void setTime(String time) { this.time = time; }
+    public void setDay(String day) { this.day = day; }
 
     public int getKcal() { return this.kcal; }
 

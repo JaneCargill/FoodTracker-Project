@@ -41,7 +41,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
     public class ViewHolder {
         TextView month;
         TextView date;
-        TextView time;
+        TextView day;
         TextView meal;
         TextView food_eaten;
         TextView kcal;
@@ -70,7 +70,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
 //            Locate the TextViews in activity_main.xml
             holder.month = (TextView) view.findViewById(R.id.month);
             holder.date = (TextView) view.findViewById(R.id.date);
-            holder.time = (TextView) view.findViewById(R.id.time);
+            holder.day = (TextView) view.findViewById(R.id.day);
             holder.meal = (TextView) view.findViewById(R.id.meal);
             holder.food_eaten = (TextView) view.findViewById(R.id.food);
             holder.kcal = (TextView) view.findViewById(R.id.kcal);
@@ -79,8 +79,8 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
             holder = (ViewHolder) view.getTag();
         }
         holder.month.setText(foodDiaryList.get(position).getMonth());
-        holder.date.setText(foodDiaryList.get(position).getDate());
-        holder.time.setText(foodDiaryList.get(position).getTime());
+        holder.date.setText(foodDiaryList.get(position).getDate().toString());
+        holder.day.setText(foodDiaryList.get(position).getDay());
         holder.meal.setText(foodDiaryList.get(position).getMeal());
         holder.food_eaten.setText(foodDiaryList.get(position).getFoodEaten());
         holder.kcal.setText(foodDiaryList.get(position).getKcal());
@@ -91,7 +91,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
                 Intent intent = new Intent(mContext, SingleItemView.class);
                 intent.putExtra("month", (foodDiaryList.get(position).getMonth()));
                 intent.putExtra("date", (foodDiaryList.get(position).getDate()));
-                intent.putExtra("time", (foodDiaryList.get(position).getTime()));
+                intent.putExtra("day", (foodDiaryList.get(position).getDay()));
                 intent.putExtra("meal", (foodDiaryList.get(position).getMeal()));
                 intent.putExtra("food_eaten", (foodDiaryList.get(position).getFoodEaten()));
                 intent.putExtra("kcal", (foodDiaryList.get(position).getKcal()));

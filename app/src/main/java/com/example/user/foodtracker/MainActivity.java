@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editSearch;
     Button addButton;
     TextView totalCals;
+    Button todayButton;
 
 
     @Override
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         listAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, getAllFoodEntries(db));
         totalCals = (TextView)findViewById(R.id.total_cals);
+        todayButton = (Button)findViewById(R.id.today_button);
 
 //                db.deleteAllFood();
 //        db.addFoodEntry(new FoodDiary("Dec", "17th", "7pm", "Dinner", "pizza", 500));
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("id", foodEntry.getID());
                 intent.putExtra("month", foodEntry.getMonth());
                 intent.putExtra("date", foodEntry.getDate());
-                intent.putExtra("time", foodEntry.getTime());
+                intent.putExtra("day", foodEntry.getDay());
                 intent.putExtra("meal", foodEntry.getMeal());
                 intent.putExtra("food", foodEntry.getFoodEaten());
                 intent.putExtra("kcal", foodEntry.getKcal());
@@ -100,6 +102,15 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, NewEntryActivity.class);
                 startActivity(intent);
 
+            }
+        });
+
+        todayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, TodayItemView.class);
+                startActivity(intent);
             }
         });
     }

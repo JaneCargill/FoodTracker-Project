@@ -36,7 +36,8 @@
 
         </activity>
         <activity
-            android:name=".EditFoodEntry">
+            android:name=".EditFoodEntry"
+            android:parentActivityName=".MainActivity">
 
         </activity>
         <activity

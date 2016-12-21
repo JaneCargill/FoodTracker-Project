@@ -27,13 +27,13 @@ public class MainActivity extends AppCompatActivity {
 
 //    ListView mListViewSearch;
     ListView mListView;
-//    ArrayAdapter<String> listAdapter;
+    ArrayAdapter<String> listAdapter;
     EditText editSearch;
     Button addButton;
     TextView totalCals;
     Button todayButton;
-    ListAdapter listAdapter;
-    CustomAdapterListFields adapter;
+//    ListAdapter listAdapter;
+//    CustomAdapterListFields adapter;
 
 
 
@@ -44,16 +44,16 @@ public class MainActivity extends AppCompatActivity {
 
         final DatabaseHandler db = ((MainApplication)getApplication()).db;
 
-//        mListViewSearch = (ListView)findViewById(R.id.food_entries);
-        mListView = (ListView) findViewById(R.id.food_entries);
+        mListView = (ListView)findViewById(R.id.food_entries);
+//        mListView = (ListView) findViewById(R.id.food_entries);
         editSearch = (EditText) findViewById(R.id.search);
         addButton = (Button)findViewById(R.id.add_button);
-//        listAdapter = new ArrayAdapter<String>(this,
-//                android.R.layout.simple_list_item_1, getAllFoodEntries(db));
+        listAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, getAllFoodEntries(db));
         totalCals = (TextView)findViewById(R.id.total_cals);
         todayButton = (Button)findViewById(R.id.today_button);
         // get data from the table by the ListAdapter
-        adapter = new CustomAdapterListFields(MainActivity.this, db.getAllFoodEntries());
+//        adapter = new CustomAdapterListFields(MainActivity.this, db.getAllFoodEntries());
 
 
 //                db.deleteAllFood();
@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
         Integer totalKcal = db.getTotalKcal();
         Log.d("Cals: ", totalKcal.toString());
         totalCals.setText(totalKcal.toString());
-//        mListViewSearch.setAdapter(listAdapter);
-        mListView.setAdapter(adapter);
+        mListView.setAdapter(listAdapter);
+//        mListView.setAdapter(adapter);
         editSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                MainActivity.this.adapter.getFilter().filter(s);
+                MainActivity.this.listAdapter.getFilter().filter(s);
             }
 
             @Override
@@ -89,14 +89,7 @@ public class MainActivity extends AppCompatActivity {
 //                String selectedEntry = (String) mListView.getItemAtPosition(position);
 //                Log.d("item at position: ", selectedEntry);
 
-                ArrayList<String> foodDiary = new ArrayList<String>();
-                FoodDiary foodEntrySelected = (FoodDiary) adapter.getItem(position);
-
-                ArrayList<FoodDiary> foodEntries = db.getAllFoodEntries();
-                for (FoodDiary foodEntry : foodEntries) {
-                    if (foodEntrySelected.getMonth() == foodEntry.getMonth() && foodEntrySelected.getDate() == foodEntry.getDate())
-                        foodDiary.add(foodEntry.getMeal() + ": " + foodEntry.getFoodEaten() + " on " + foodEntry.getMonth() + " " + foodEntry.getDate() + " " + foodEntry.getKcal() + "kcal");
-
+                FoodDiary foodEntry = db.getFoodEntry(position + 1);
 
                     Intent intent = new Intent(MainActivity.this, SingleItemView.class);
 
@@ -113,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
                     startActivity(intent);
                 }
-            }
+
         });
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -138,13 +131,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private ArrayList<String> getAllFoodEntriesByDay(DatabaseHandler db, int position) {
+    private ArrayList<String> getAllFoodEntries(DatabaseHandler db) {
         ArrayList<String> foodDiary = new ArrayList<String>();
-        FoodDiary foodEntrySelected = (FoodDiary)adapter.getItem(position);
+//        FoodDiary foodEntrySelected = (FoodDiary)adapter.getItem(position);
 
         ArrayList<FoodDiary> foodEntries = db.getAllFoodEntries();
         for (FoodDiary foodEntry : foodEntries) {
-            if (foodEntrySelected.getMonth() == foodEntry.getMonth() && foodEntrySelected.getDate() == foodEntry.getDate())
             foodDiary.add(foodEntry.getMeal() + ": " + foodEntry.getFoodEaten() + " on " + foodEntry.getMonth() + " " + foodEntry.getDate() + " " + foodEntry.getKcal() + "kcal");
 
         }

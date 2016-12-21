@@ -108,56 +108,44 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
             return null;
     }
+    public Integer getKcalsForTodaysFood() {
 
-//    public FoodDiary getFoodEntry(String id) {
-//         String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_MONTH + " = '" + month + "'";
-//
-//
-//    SQLiteDatabase db = this.getWritableDatabase();
-//    Cursor cursor = db.rawQuery(sql, null);
-//    if (cursor != null) {
-//        cursor.moveToFirst();
-//
-//        FoodDiary food_entry = getFoodFromDBCursor(cursor);
-//        return food_entry;
-//    }
-//    return null;
-//    }
-//
-//
-//    public FoodDiary getByDay(String day) {
-//
-//        String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_DAY + " = " + day;
-//
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(sql, null);
-//        if (cursor != null) {
-//            cursor.moveToFirst();
-//
-//            FoodDiary food_entry = getFoodFromDBCursor(cursor);
-//            return food_entry;
-//        }
-//        return null;
-//    }
-
-
-    public ArrayList<FoodDiary> getTodaysFood(int id) {
-        ArrayList<FoodDiary> foodEntries = new ArrayList<FoodDiary>();
-
-        String sql = "SELECT * FROM " + TABLE_FOODINFO + " GROUP BY " + KEY_DAY + " HAVING COUNT(*) > 1 WHERE " + KEY_ID + " =" + id;
+        String sql = "SELECT SUM(kcal) AS totalKcal FROM " + TABLE_FOODINFO + " WHERE strftime('%m', " + KEY_MONTH + ")";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
 
-        if (cursor.moveToFirst()) {
-            do {FoodDiary food_entry = getFoodFromDBCursor(cursor);
-                foodEntries.add(food_entry);
-            } while (cursor.moveToNext());
+        if (cursor != null) {
+            cursor.moveToFirst();
+//
+//            FoodDiary food_entry = getFoodFromDBCursor(cursor);
+//            return food_entry;
+            Integer total = cursor.getInt(cursor.getColumnIndex("totalKcal"));
+            Log.d("Total kcal: ", total.toString());
+            return total;
         }
 
-        return foodEntries;
+
+        public ArrayList<FoodDiary> getTodaysFood () {
+            ArrayList<FoodDiary> foodEntries = new ArrayList<FoodDiary>();
+
+            String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE strftime('%m', " + KEY_MONTH + ")";
+
+            SQLiteDatabase db = this.getWritableDatabase();
+            Cursor cursor = db.rawQuery(sql, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    FoodDiary food_entry = getFoodFromDBCursor(cursor);
+                    foodEntries.add(food_entry);
+                }
+                while (cursor.moveToNext());
+            }
+
+            return foodEntries;
+        }
     }
+
 
 //        return null;
 //    }
@@ -167,22 +155,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return currentDateTimeString;
     }
 
-
-//
-//    public FoodDiary getFoodEntryByMeal(String meal) {
-//        String sql = "SELECT * FROM " + TABLE_FOODINFO + " WHERE " + KEY_MEAL + " = '" + meal + "'";
-//
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(sql, null);
-//        if (cursor != null) {
-//            cursor.moveToFirst();
-//
-//            FoodDiary food_entry = getFoodFromDBCursor(cursor);
-//            return food_entry;
-//        }
-//        return null;
-//    }
 
         // Getting All FoodEntries
         public ArrayList<FoodDiary> getAllFoodEntries() {

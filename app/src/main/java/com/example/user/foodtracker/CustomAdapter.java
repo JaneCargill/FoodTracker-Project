@@ -79,7 +79,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
             holder = (ViewHolder) view.getTag();
         }
         holder.month.setText(foodDiaryList.get(position).getMonth());
-        holder.date.setText(foodDiaryList.get(position).getDate().toString());
+        holder.date.setText(foodDiaryList.get(position).getDate());
         holder.day.setText(foodDiaryList.get(position).getDay());
         holder.meal.setText(foodDiaryList.get(position).getMeal());
         holder.food_eaten.setText(foodDiaryList.get(position).getFoodEaten());

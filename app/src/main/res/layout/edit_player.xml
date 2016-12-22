@@ -39,14 +39,20 @@
         android:textSize="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="0dip"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_weight="1">
     <Button
         android:id="@+id/save_button"
         android:text="Save"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="25dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/pink_button"/>
 
     <Button
         android:id="@+id/cancel_button"
@@ -54,6 +60,8 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="25dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/pink_button"/>
+        </LinearLayout>
 
 </LinearLayout>

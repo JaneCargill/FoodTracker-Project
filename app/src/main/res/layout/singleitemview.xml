@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:color="@color/pink">
+    android:layout_height="match_parent" android:background="@color/white">
 
     <TextView
         android:id="@+id/month"
@@ -75,21 +75,29 @@
         android:text="edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/pink_button"/>
 
     <Button
         android:id="@+id/delete_button"
         android:text="delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/pink_button"/>
 
     <Button
         android:id="@+id/back_button"
         android:text="Home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/pink_button"/>
         </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/veg_bike"/>
 
 </LinearLayout>

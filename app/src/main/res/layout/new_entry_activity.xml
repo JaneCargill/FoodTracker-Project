@@ -3,6 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center" >
+
     <Spinner
         android:id="@+id/month_input"
         android:hint="enter the month"
@@ -11,7 +17,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"/>
+        android:spinnerMode="dropdown"
+        />
     <Spinner
         android:id="@+id/date_input"
         android:hint="enter the date"
@@ -31,6 +38,7 @@
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"/>
+        </LinearLayout>
     <EditText
         android:id="@+id/food_input"
         android:hint="enter food eaten"
@@ -53,13 +61,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center" >
+
     <Button
         android:id="@+id/save_button"
         android:text="Save"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="25dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="60dp"
+        android:background="@drawable/pink_button"/>
 
     <Button
         android:id="@+id/cancel_button"
@@ -67,7 +82,14 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="25dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="60dp"
+        android:background="@drawable/pink_button"/>
+        </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="500dp"
+        android:src="@drawable/colored_carrots"/>
 
 
 
